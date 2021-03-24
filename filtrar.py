@@ -108,7 +108,7 @@ códigoMaestra = {'020124'}
 códigoFina = {'020123'}
 equidistancia = 1
 
-curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), diging.DrawingFile)
+curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), DigiNG.DrawingFile)
 curvasNivelVálidasParaEscala = filter(lambda entidad: esCurvaVálida(entidad, equidistancia), curvasNivel)
 curvasNivelNoVálidasParaEscala = filter(lambda entidad: not esCurvaVálida(entidad, equidistancia), curvasNivel)
 
@@ -125,11 +125,11 @@ for entidad in curvasMaestrasAModificar:
 for entidad in curvasFinasAModificar:
     añadir.append(creaClonCambiandoCodigo(entidad, códigoFina))
 
-diging.DrawingFile.Add(añadir)
-diging.DrawingFile.Delete(curvasMaestrasAModificar)
-diging.DrawingFile.Delete(curvasFinasAModificar)
-diging.DrawingFile.Delete(curvasNivelNoVálidasParaEscala)
-diging.RenderScene()
+DigiNG.DrawingFile.Add(añadir)
+DigiNG.DrawingFile.Delete(curvasMaestrasAModificar)
+DigiNG.DrawingFile.Delete(curvasFinasAModificar)
+DigiNG.DrawingFile.Delete(curvasNivelNoVálidasParaEscala)
+DigiNG.RenderScene()
 
 
 

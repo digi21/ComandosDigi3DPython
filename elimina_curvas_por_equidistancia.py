@@ -50,8 +50,8 @@ def EsMultiploDeEquidistancia(entidad, equidistancia):
 códigosEntidadesAModificar = {'020123', '020124'}
 equidistancia = 1
 
-curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), diging.DrawingFile)
+curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), DigiNG.DrawingFile)
 curvasNivelAEliminar = filter(lambda entidad: EsMultiploDeEquidistancia(entidad, equidistancia), curvasNivel)
 
-diging.DrawingFile.Delete(curvasNivelAEliminar)
-diging.RenderScene()
+DigiNG.DrawingFile.Delete(curvasNivelAEliminar)
+DigiNG.RenderScene()
