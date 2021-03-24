@@ -3,8 +3,6 @@
 # Para ejecutarlo, tan solo tenemos que ejecutar la orden:
 #  ELIMINA_CURVAS_POR_EQUIDISTANCIA
 #
-from Digi21.DigiNG.Entities import Code
-
 def TieneAlgunCódigo(entidad, códigos):
     """Indica si la entidad tiene alguno de los códigos.
 
@@ -47,11 +45,24 @@ def EsMultiploDeEquidistancia(entidad, equidistancia):
 
     return 0 == int(z) % int(equidistancia)
 
-códigosEntidadesAModificar = {'020123', '020124'}
-equidistancia = 1
-
+if len(argv) < 2:
+	Digi3D.Music(MusicType.Error)
+	raise Exception('Número de parámetros incorrecto')
+	
+códigosEntidadesAModificar = set(argv[0:-2])
+equidistancia = float(argv[-1])
+		
 curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), DigiNG.DrawingFile)
+
+if len(curvasNivel) == 0:
+	Digi3D.Music(MusicType.Error)
+	raise Exception('No se ha localizado ninguna curva de nivel con los códigos pasados por parámetro')
+
 curvasNivelAEliminar = filter(lambda entidad: EsMultiploDeEquidistancia(entidad, equidistancia), curvasNivel)
 
+if len(curvasNivelAEliminar) == 0:
+	Digi3D.Music(MusicType.Error)
+	raise Exception('No se ha localizado ninguna curva de nivel con la equidistancia pasada por parámetros')
+	
 DigiNG.DrawingFile.Delete(curvasNivelAEliminar)
 DigiNG.RenderScene()

@@ -18,7 +18,6 @@
 # el siguiente comando:
 # 
 #  FILTRAR=020124 020123 1
-from Digi21.DigiNG.Entities import Code
 
 def TieneAlgunCódigo(entidad, códigos):
     """Indica si la entidad tiene alguno de los códigos.
@@ -103,10 +102,14 @@ def esDirectora(entidad, equidistancia, distanciaEntreDirectoras=5):
     return 0 == int(z) % distanciaEntreDirectoras * int(equidistancia)
 
 
-códigosEntidadesAModificar = {'020123', '020124'}
-códigoMaestra = {'020124'}
-códigoFina = {'020123'}
-equidistancia = 1
+if len(argv) < 3:
+	Digi3D.Music(MusicType.Error)
+	raise Exception('Número de parámetros incorrecto. Se esperaba [código de maestra] [código de fina] [equidistancia]')
+
+códigoMaestra = {argv[0]}
+códigoFina = {argv[1]}
+códigosEntidadesAModificar = {argv[0], argv[1]}
+equidistancia = float(argv[2])
 
 curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), DigiNG.DrawingFile)
 curvasNivelVálidasParaEscala = filter(lambda entidad: esCurvaVálida(entidad, equidistancia), curvasNivel)
@@ -130,6 +133,3 @@ DigiNG.DrawingFile.Delete(curvasMaestrasAModificar)
 DigiNG.DrawingFile.Delete(curvasFinasAModificar)
 DigiNG.DrawingFile.Delete(curvasNivelNoVálidasParaEscala)
 DigiNG.RenderScene()
-
-
-
