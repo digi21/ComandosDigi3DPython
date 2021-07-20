@@ -1,16 +1,14 @@
-﻿"""
-    Si tenemos por ejemplo una línea con el código:
-        Nombre: A
-        Tabla: 7
-        Registro: 22
+﻿# Si tenemos por ejemplo una línea con el código:
+#     Nombre: A
+#     Tabla: 7
+#     Registro: 22
 
-    Si ejecutamos la orden RENOMCOD es posible que se pierdan los atributos de base de datos en función de si estamos conectados o no a una BBDD, o
-    en función de la configuración de la tabla de códigos.
+# Si ejecutamos la orden RENOMCOD es posible que se pierdan los atributos de base de datos en función de si estamos conectados o no a una BBDD, o
+# en función de la configuración de la tabla de códigos.
 
-    Este guion emula la orden RENOMCOD pero asegurándose de que el campo Tabla y Registro se mantienen.
-    Para que funcione correctamente es necesario abrir el archivo de dibujo SIN CONEXIÓN A UNA BASE DE DATOS para asegurarse de que el motor
-    de Digi3D.NET no intente almacenar en la base de datos información.
-"""
+# Este guion emula la orden RENOMCOD pero asegurándose de que el campo Tabla y Registro se mantienen.
+# Para que funcione correctamente es necesario abrir el archivo de dibujo SIN CONEXIÓN A UNA BASE DE DATOS para asegurarse de que el motor
+# de Digi3D.NET no intente almacenar en la base de datos información.
 
 def TieneElCódigo(entidad, código):
     """Indica si la entidad tiene alguno de los códigos.
