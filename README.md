@@ -17,6 +17,9 @@ guiones Python copiados en la carpeta de macroinstrucciones o en la tabla de có
 (o de cualquier parte) un guión Python para Digi3D.NET, y o copiarlo en su directorio de macroinstrucciones o pegarlo en la pestaña macroinstrucciones
 de su tabla de códigos como si fuese una arroba más. A partir de ese momento Digi3D.NET reconocerá el comando como propio.
 
+En el año 2023 hemos eliminado el panel de Python interactivo y hemos creado el panel de Guiones Python. Además hemos cambiado el motor que utiliza Digi3D.NET que pasa de ser IronPython a CPython. Hemos cambiado además todo el modelo de objetos para que sea más _Pythonic_. 
+Ahora podemos crear órdenes interactivas en Python. La primera orden interactiva que se ha desarrollado ha sido la orden [dibuja_texto_extraido_callejero_catastro.py](dibuja_texto_extraido_callejero_catastro.py).
+
 Este repositorio está pensado para que tanto el equipo de desarrollo de Digi3D.NET como los usuarios con conocimientos del lenguaje de programación
 Python puedan subir comandos para que los pueda utilizar toda la comunidad de usuarios de Digi3D.NET.
 
