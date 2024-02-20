@@ -18,6 +18,9 @@
 # el siguiente comando:
 # 
 #  FILTRAR=020124 020123 1
+import digi3d
+
+view = digi3d.current_view()
 
 def TieneAlgunCódigo(entidad, códigos):
     """Indica si la entidad tiene alguno de los códigos.
@@ -31,7 +34,7 @@ def TieneAlgunCódigo(entidad, códigos):
         Esta función devuelve verdadero si se encuentra al menos un código de los pasados por parámetros
         de entre los códigos que tiene la entidad.
     """
-    códigosEntidad = { cod.Name for cod in entidad.Codes }
+    códigosEntidad = { cod.name for cod in entidad.codes }
     return len(códigos.intersection(códigosEntidad)) > 0
 
 def creaClonCambiandoCodigo(entidad, códigosNuevos):
@@ -45,65 +48,33 @@ def creaClonCambiandoCodigo(entidad, códigosNuevos):
     Devuelve:
         Entidad clonada con los códigos nuevos
     """
-    clon = entidad.Clone()
-    clon.Codes.Clear()
+    clon = entidad.clone()
+    codes = []
     for código in códigosNuevos:
-        clon.Codes.Add(Code(código))
+        codes.append(digi3d.Code(código))
+    clon.codes = tuple(codes)
     return clon
 
-def esCurvaVálida(entidad, equidistancia):
-    """Calcula si una coordenada Z es válida para una determinada equidistancia.
+def es_curva_fina_o_maestra(coordenada_z, equidistancia):
+    return 0 == coordenada_z % equidistancia
 
-    Argumentos:
-        z: Coordenada Z para la cual queremos saber si es o no válida para una determinada equidistancia.
-
-        equidistancia: Equidistancia para la cual consultamos.
-    """
-    z = entidad.Points[0].Z
-
-    # Esta función se basa en el resto de la división entera para saber si una coordenada Z es múltiplo 
-    # de la equidistancia. Si la equidistancia es un número no entero, como por ejemplo 0.5 para escala 1:500,
-    # el operador resto no funciona, de manera que en este caso vamos a multiplicar tanto la coordenada Z como 
-    # el valor de la equidistancia por un número tal que la equidistancia sea un número entero.
-    if equidistancia < 1:
-        factorEscala = 1/equidistancia
-        z *= factorEscala
-        equidistancia *= factorEscala
-
-    # Si tras escalar para que la equidistancia no tenga decimales, la coordenada por la que nos preguntan
-    # tiene decimales, no es válida.
-    if z -  int(z) != 0:
+def es_maestra(coordenada_z, equidistancia, intervalo_maestras=5):
+    'Devuelve verdadero si la coordenada Z pasada por parámetro corresponde a la de una curva de nivel maestra para una equidistancia de curvas y un determinado intervalo de curvas de nivel'
+    if not es_curva_fina_o_maestra(coordenada_z, equidistancia):
         return False
 
-    return 0 == int(z) % int(equidistancia)
+    return 0 == coordenada_z % (intervalo_maestras * equidistancia)
 
-def esDirectora(entidad, equidistancia, distanciaEntreDirectoras=5):
-    """Indica si la entidad es una directora para una determinada equidistancia y para una determinada distancia
-    entre directoras.
+def es_fina(coordenada_z, equidistancia, intervalo_maestras=5):
+    'Devuelve verdadero si la coordenada Z pasada por parámetro corresponde a la de una curva de nivel maestra para una equidistancia de curvas y un determinado intervalo de curvas de nivel'
+    if not es_curva_fina_o_maestra(coordenada_z, equidistancia):
+        return False
 
-    Argumentos:
-        entidad: Entidad a consultar si es o no directora.
-
-        equidistancia: Equidistancia para la cual consultamos.
-
-        distanciaEntreDirectoras: Número de curvas de nivel entre directoras. Habitualmente es 5 pero podría ser otro valor.
-    """
-    z = entidad.Points[0].Z
-
-    # Esta función se basa en el resto de la división entera para saber si una coordenada Z es múltiplo 
-    # de la equidistancia. Si la equidistancia es un número no entero, como por ejemplo 0.5 para escala 1:500,
-    # el operador resto no funciona, de manera que en este caso vamos a multiplicar tanto la coordenada Z como 
-    # el valor de la equidistancia por un número tal que la equidistancia sea un número entero.
-    if equidistancia < 1:
-        factorEscala = 1/equidistancia
-        z *= factorEscala
-        equidistancia *= factorEscala
-        
-    return 0 == int(z) % distanciaEntreDirectoras * int(equidistancia)
+    return 0 != coordenada_z % (intervalo_maestras * equidistancia)
 
 
 if len(argv) < 3:
-	Digi3D.Music(MusicType.Error)
+	digi3d.music(digi3d.MusicType.Error)
 	raise Exception('Número de parámetros incorrecto. Se esperaba [código de maestra] [código de fina] [equidistancia]')
 
 códigoMaestra = {argv[0]}
@@ -111,15 +82,20 @@ códigoFina = {argv[1]}
 códigosEntidadesAModificar = {argv[0], argv[1]}
 equidistancia = float(argv[2])
 
-curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), DigiNG.DrawingFile)
-curvasNivelVálidasParaEscala = filter(lambda entidad: esCurvaVálida(entidad, equidistancia), curvasNivel)
-curvasNivelNoVálidasParaEscala = filter(lambda entidad: not esCurvaVálida(entidad, equidistancia), curvasNivel)
+print('hola')
+print(dir())
 
-curvasMaestras = filter(lambda entidad: esDirectora(entidad, equidistancia), curvasNivelVálidasParaEscala)
-curvasMaestrasAModificar = filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoMaestra), curvasMaestras)
+curvasNivel = list(filter(lambda entidad: not entidad.deleted and TieneAlgunCódigo(entidad, códigosEntidadesAModificar), view))
+curvasNivelVálidasParaEscala = list(filter(lambda entidad: es_curva_fina_o_maestra(entidad[0][2], equidistancia), curvasNivel))
+curvasNivelNoVálidasParaEscala = list(filter(lambda entidad: not es_curva_fina_o_maestra(entidad[0][2], equidistancia), curvasNivel))
 
-curvasFinas = filter(lambda entidad: not esDirectora(entidad, equidistancia), curvasNivelVálidasParaEscala)
-curvasFinasAModificar = filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoFina), curvasFinas)
+curvasMaestras = list(filter(lambda entidad: es_maestra(entidad[0][2], equidistancia), curvasNivelVálidasParaEscala))
+print(len(curvasMaestras))
+curvasMaestrasAModificar = list(filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoMaestra), curvasMaestras))
+print(len(curvasMaestrasAModificar))
+
+curvasFinas = list(filter(lambda entidad: es_fina(entidad[0][2], equidistancia), curvasNivelVálidasParaEscala))
+curvasFinasAModificar = list(filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoFina), curvasFinas))
 
 añadir = []
 for entidad in curvasMaestrasAModificar:
@@ -128,8 +104,8 @@ for entidad in curvasMaestrasAModificar:
 for entidad in curvasFinasAModificar:
     añadir.append(creaClonCambiandoCodigo(entidad, códigoFina))
 
-DigiNG.DrawingFile.Add(añadir)
-DigiNG.DrawingFile.Delete(curvasMaestrasAModificar)
-DigiNG.DrawingFile.Delete(curvasFinasAModificar)
-DigiNG.DrawingFile.Delete(curvasNivelNoVálidasParaEscala)
-DigiNG.RenderScene()
+view.add(añadir)
+view.delete(curvasMaestrasAModificar)
+view.delete(curvasFinasAModificar)
+view.delete(curvasNivelNoVálidasParaEscala)
+view.redraw()
