@@ -82,17 +82,12 @@ códigoFina = {argv[1]}
 códigosEntidadesAModificar = {argv[0], argv[1]}
 equidistancia = float(argv[2])
 
-print('hola')
-print(dir())
-
 curvasNivel = list(filter(lambda entidad: not entidad.deleted and TieneAlgunCódigo(entidad, códigosEntidadesAModificar), view))
 curvasNivelVálidasParaEscala = list(filter(lambda entidad: es_curva_fina_o_maestra(entidad[0][2], equidistancia), curvasNivel))
 curvasNivelNoVálidasParaEscala = list(filter(lambda entidad: not es_curva_fina_o_maestra(entidad[0][2], equidistancia), curvasNivel))
 
 curvasMaestras = list(filter(lambda entidad: es_maestra(entidad[0][2], equidistancia), curvasNivelVálidasParaEscala))
-print(len(curvasMaestras))
 curvasMaestrasAModificar = list(filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoMaestra), curvasMaestras))
-print(len(curvasMaestrasAModificar))
 
 curvasFinas = list(filter(lambda entidad: es_fina(entidad[0][2], equidistancia), curvasNivelVálidasParaEscala))
 curvasFinasAModificar = list(filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoFina), curvasFinas))

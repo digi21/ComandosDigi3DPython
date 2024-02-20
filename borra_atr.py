@@ -1,22 +1,27 @@
+import digi3d
+
+view = digi3d.current_view()
+
 def creaClonSinAtributosBaseDatos(entidad):
-    """Crea un clon de la entidad sustituyendo sus códigos por los indicados.
+    """Crea un clon de la entidad sustituyendo sus cÃ³digos por unos nuevos sin diccionario de BBDD.
     Argumentos:
         entidad: Entidad a clonar
     Devuelve:
         Entidad clonada sin enlace a base de datos
     """
-    clon = entidad.Clone()
-    clon.Codes.Clear()
+    clon = entidad.clone()  
+    codes = []
     for codigo in entidad.Codes:
-		clon.Codes.Add(Code(codigo.Name))
+        codes.append(digi3d.Code(codigo))
+    clon.codes = tuple(codes)
     return clon
 
 eliminar = []
 anadir = []
-for entidad in DigiNG.DrawingFile:
+for entidad in view:
 	anadir.append(creaClonSinAtributosBaseDatos(entidad))
 	eliminar.append(entidad)
 
-DigiNG.DrawingFile.Add(anadir)
-DigiNG.DrawingFile.Delete(eliminar)
-DigiNG.RenderScene()
+view.add(anadir)
+view.delete(eliminar)
+view.redraw()

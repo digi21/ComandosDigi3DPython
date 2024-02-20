@@ -9,6 +9,9 @@
 # Este guion emula la orden RENOMCOD pero asegurándose de que el campo Tabla y Registro se mantienen.
 # Para que funcione correctamente es necesario abrir el archivo de dibujo SIN CONEXIÓN A UNA BASE DE DATOS para asegurarse de que el motor
 # de Digi3D.NET no intente almacenar en la base de datos información.
+import digi3d
+
+view = digi3d.current_view()
 
 def TieneElCódigo(entidad, código):
     """Indica si la entidad tiene alguno de los códigos.
@@ -19,7 +22,7 @@ def TieneElCódigo(entidad, código):
         Esta función devuelve verdadero si se encuentra al menos un código de los pasados por parámetros
         de entre los códigos que tiene la entidad.
     """
-    códigosEntidad = { cod.Name for cod in entidad.Codes }
+    códigosEntidad = { cod.name for cod in entidad.codes }
     return len(códigosEntidad.intersection({código})) > 0
 
 def creaClonCambiandoCodigo(entidad, códigoOrigen, códigoDestino):
@@ -30,28 +33,29 @@ def creaClonCambiandoCodigo(entidad, códigoOrigen, códigoDestino):
     Devuelve:
         Entidad clonada con los códigos nuevos
     """
-    clon = entidad.Clone()
-    clon.Codes.Clear()
-    for código in entidad.Codes:
-		if código.Name == códigoOrigen:
-			clon.Codes.Add(Code(códigoDestino, código.Table, código.Id))
-		else:
-			clon.Codes.Add(código)
+    clon = entidad.clone()
+    codes = []
+    for código in entidad.codes:
+        if código.name == códigoOrigen:
+            codes.append(digi3d.Code(códigoDestino, código.table, código.id))
+        else:
+            codes.append(código)
+    clon.codes = tuple(codes)
     return clon
 
 if len(argv) < 2:
-	Digi3D.Music(MusicType.Error)
+	digi3d.music(digi3d.MusicType.Error)
 	raise Exception('Número de parámetros incorrecto. Se esperaba [código origen] [código destino]')
 
 códigoOrigen = argv[0]
 códigoDestino = argv[1]
 
-entidadesRenombrar = filter(lambda entidad: TieneElCódigo(entidad, códigoOrigen), DigiNG.DrawingFile)
+entidadesRenombrar = filter(lambda entidad: TieneElCódigo(entidad, códigoOrigen), view)
 
 añadir = []
 for entidad in entidadesRenombrar:
     añadir.append(creaClonCambiandoCodigo(entidad, códigoOrigen, códigoDestino))
 
-DigiNG.DrawingFile.Add(añadir)
-DigiNG.DrawingFile.Delete(entidadesRenombrar)
-DigiNG.RenderScene()
+view.add(añadir)
+view.delete(entidadesRenombrar)
+view.redraw()
