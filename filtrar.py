@@ -55,23 +55,22 @@ def creaClonCambiandoCodigo(entidad, códigosNuevos):
     clon.codes = tuple(codes)
     return clon
 
-def es_curva_fina_o_maestra(coordenada_z, equidistancia):
-    return 0 == coordenada_z % equidistancia
+def es_curva_fina_o_maestra(coordenada_z, equidistancia, decimalesPrecision, factorEscala):
+    return abs((round(coordenada_z, decimalesPrecision) * factorEscala) % (equidistancia * factorEscala)) < 1e-5
 
-def es_maestra(coordenada_z, equidistancia, intervalo_maestras=5):
+def es_maestra(coordenada_z, equidistancia, decimalesPrecision, factorEscala, intervalo_maestras=5):
     'Devuelve verdadero si la coordenada Z pasada por parámetro corresponde a la de una curva de nivel maestra para una equidistancia de curvas y un determinado intervalo de curvas de nivel'
-    if not es_curva_fina_o_maestra(coordenada_z, equidistancia):
+    if not es_curva_fina_o_maestra(coordenada_z, equidistancia, decimalesPrecision, factorEscala):
         return False
 
-    return 0 == coordenada_z % (intervalo_maestras * equidistancia)
+    return abs((round(coordenada_z,decimalesPrecision) * factorEscala) % (intervalo_maestras * equidistancia * factorEscala)) < 1e-5
 
-def es_fina(coordenada_z, equidistancia, intervalo_maestras=5):
+def es_fina(coordenada_z, equidistancia, decimalesPrecision, factorEscala, intervalo_maestras=5):
     'Devuelve verdadero si la coordenada Z pasada por parámetro corresponde a la de una curva de nivel maestra para una equidistancia de curvas y un determinado intervalo de curvas de nivel'
-    if not es_curva_fina_o_maestra(coordenada_z, equidistancia):
+    if not es_curva_fina_o_maestra(coordenada_z, equidistancia, decimalesPrecision, factorEscala):
         return False
 
-    return 0 != coordenada_z % (intervalo_maestras * equidistancia)
-
+    return abs ((round(coordenada_z,decimalesPrecision) * factorEscala) % (intervalo_maestras * equidistancia * factorEscala) >= 1e-5)
 
 if len(argv) < 3:
 	digi3d.music(digi3d.MusicType.Error)
@@ -81,15 +80,17 @@ códigoMaestra = {argv[0]}
 códigoFina = {argv[1]}
 códigosEntidadesAModificar = {argv[0], argv[1]}
 equidistancia = float(argv[2])
+decimalesPrecision = 3
+factorEscala = pow(10, decimalesPrecision)
 
 curvasNivel = list(filter(lambda entidad: not entidad.deleted and TieneAlgunCódigo(entidad, códigosEntidadesAModificar), view))
-curvasNivelVálidasParaEscala = list(filter(lambda entidad: es_curva_fina_o_maestra(entidad[0][2], equidistancia), curvasNivel))
-curvasNivelNoVálidasParaEscala = list(filter(lambda entidad: not es_curva_fina_o_maestra(entidad[0][2], equidistancia), curvasNivel))
+curvasNivelVálidasParaEscala = list(filter(lambda entidad: es_curva_fina_o_maestra(entidad[0][2], equidistancia, decimalesPrecision, factorEscala), curvasNivel))
+curvasNivelNoVálidasParaEscala = list(filter(lambda entidad: not es_curva_fina_o_maestra(entidad[0][2], equidistancia, decimalesPrecision, factorEscala), curvasNivel))
 
-curvasMaestras = list(filter(lambda entidad: es_maestra(entidad[0][2], equidistancia), curvasNivelVálidasParaEscala))
+curvasMaestras = list(filter(lambda entidad: es_maestra(entidad[0][2], equidistancia, decimalesPrecision, factorEscala), curvasNivelVálidasParaEscala))
 curvasMaestrasAModificar = list(filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoMaestra), curvasMaestras))
 
-curvasFinas = list(filter(lambda entidad: es_fina(entidad[0][2], equidistancia), curvasNivelVálidasParaEscala))
+curvasFinas = list(filter(lambda entidad: es_fina(entidad[0][2], equidistancia, decimalesPrecision, factorEscala), curvasNivelVálidasParaEscala))
 curvasFinasAModificar = list(filter(lambda entidad: not TieneAlgunCódigo(entidad, códigoFina), curvasFinas))
 
 añadir = []
