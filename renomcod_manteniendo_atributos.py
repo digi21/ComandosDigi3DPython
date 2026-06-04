@@ -9,7 +9,7 @@
 
 # Este guion emula la orden RENOMCOD pero asegurándose de que el campo Tabla y Registro se mantienen.
 # Para que funcione correctamente es necesario abrir el archivo de dibujo SIN CONEXIÓN A UNA BASE DE DATOS para asegurarse de que el motor
-# de Digi3D.NET no intente almacenar en la base de datos información.
+# de Digi3D.AI no intente almacenar en la base de datos información.
 import digi3d
 
 view = digi3d.current_view()

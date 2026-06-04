@@ -11,13 +11,13 @@ class DibujaTextoExtraidoCallejeroCatastro(digi3d.PythonCommand):
     un texto con la información devuelta por el servidor de catastro.
     '''
 
-    # Si queremos que Digi3D.NET muestre un nombre de orden en el panel de resultados, tenemos que comunicar
+    # Si queremos que Digi3D.AI muestre un nombre de orden en el panel de resultados, tenemos que comunicar
     # el nombre a mostrar en el constructor de la clase base PythonCommand.
     def __init__(self, codigo_epsg):
         digi3d.PythonCommand.__init__(self, 'dibuja_texto_extraido_callejero_catastro')
         self.codigo_epsg = codigo_epsg
 
-    # Digi3D.NET llamará a on_data_down cada vez que el usuario pulsa el botón (o pedal) de dato
+    # Digi3D.AI llamará a on_data_down cada vez que el usuario pulsa el botón (o pedal) de dato
     def on_data_down(self, coordenadas):
         calle = self.obten_nombre_calle_servidor_catastro(coordenadas)
 
@@ -38,7 +38,7 @@ class DibujaTextoExtraidoCallejeroCatastro(digi3d.PythonCommand):
         # proporcionado por la clase base PythonCommand
         self.new_transaction()
 
-        # Las funciones de eventos como on_data_down tienen que devolver True para que Digi3D.NET sepa que el evento
+        # Las funciones de eventos como on_data_down tienen que devolver True para que Digi3D.AI sepa que el evento
         # ha sido procesado y que no tiene que seguir buscando otra orden que lo procese
         return True
 
@@ -50,7 +50,7 @@ class DibujaTextoExtraidoCallejeroCatastro(digi3d.PythonCommand):
         # Información de las API REST proporcionadas por catastro: https://www.catastro.meh.es/ws/Webservices_Libres.pdf
         # Información de la API REST que utiliza esta orden: http://ovc.catastro.meh.es/OVCServWeb/OVCWcfCallejero/COVCCoordenadas.svc/json/help
         #
-        # Nota: el intérprete de Python embebido en Digi3D.NET solo dispone de la librería estándar (no hay paquetes
+        # Nota: el intérprete de Python embebido en Digi3D.AI solo dispone de la librería estándar (no hay paquetes
         # de terceros como "requests"), así que la llamada HTTP se hace con urllib.request, que sí forma parte de la stdlib.
 
         try:

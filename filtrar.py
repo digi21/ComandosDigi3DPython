@@ -7,7 +7,7 @@
 # 2. Cambiar el código de las curvas de nivel y asignar el código de curva de nivel maestra y curva de nivel fina
 #    en función de su coordenada Z para una determinada escala.
 #
-# Este comando es el primer comando que hemos desarrollado en Python para Digi3D.NET. Digi3D.NET es capaz de ejecutar
+# Este comando es el primer comando que hemos desarrollado en Python para Digi3D.AI. Digi3D.AI es capaz de ejecutar
 # comandos en Python desde la versión 2019.2.4.0. Este comando realiza la misma función que hacía el programa FILTRAR 
 # de MS-DOS.
 #

@@ -1,5 +1,5 @@
 """Transforma geometrías de tipo Complejo en Punto (para ejecutar desde el panel de Guiones Python; los códigos a transformar se editan dentro del propio guion)."""
-# Este guion es para ejecutar desde el panel de Guiones Python de Digi3D.NET pues no está desarrollado como una orden y no recibe parámetros
+# Este guion es para ejecutar desde el panel de Guiones Python de Digi3D.AI pues no está desarrollado como una orden y no recibe parámetros
 # Transforma geometrías de tipo Complejo en geometrías de tipo Punto. Se ha desarrollado para solucionar el problema que ha tenido
 # una empresa al importar archivos DGN indicando que se quieren importar los puntos como complejos en vez de como puntos.
 # El ejemplo transforma dos códigos: BAI_VEG_03_PT y VEG_03_PT

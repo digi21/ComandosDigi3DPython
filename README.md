@@ -1,19 +1,19 @@
-# Comandos de Digi3D.NET en Python
+# Comandos de Digi3D.AI en Python
 
-Bienvenido al repositorio **comunitario** de comandos de [Digi3D.NET](https://www.digi21.net) escritos en
-Python. Aquí, el equipo de Digi3D.NET **y cualquier usuario** con conocimientos de Python pueden compartir
+Bienvenido al repositorio **comunitario** de comandos de [Digi3D.AI](https://www.digi21.net) escritos en
+Python. Aquí, el equipo de Digi3D.AI **y cualquier usuario** con conocimientos de Python pueden compartir
 comandos para que los aproveche toda la comunidad.
 
 ## 🚀 Cómo usar un comando
 
-Digi3D.NET integra un intérprete de Python (panel de **Guiones Python**) y reconoce como órdenes propias los
+Digi3D.AI integra un intérprete de Python (panel de **Guiones Python**) y reconoce como órdenes propias los
 guiones que coloques en el sitio adecuado. Para usar cualquier comando de este repositorio:
 
 1. Descarga el archivo `.py` que te interese (botón **Raw** en GitHub, o clonando el repositorio).
 2. Instálalo de una de estas dos formas:
-   - **Cópialo en tu carpeta de macroinstrucciones** de Digi3D.NET, o
+   - **Cópialo en tu carpeta de macroinstrucciones** de Digi3D.AI, o
    - **Pégalo en la pestaña _Macroinstrucciones_** de tu tabla de códigos (como si fuese una arroba más).
-3. A partir de ese momento Digi3D.NET reconocerá el comando como propio y podrás ejecutarlo.
+3. A partir de ese momento Digi3D.AI reconocerá el comando como propio y podrás ejecutarlo.
 
 ## 📦 Comandos disponibles
 
@@ -48,7 +48,7 @@ comunidad:
 
 ## 🕘 Un poco de historia
 
-- **2017** — Digi3D.NET incorpora un panel con un intérprete interactivo de IronPython (versión 2017.0.0.16).
+- **2017** — Digi3D.AI incorpora un panel con un intérprete interactivo de IronPython (versión 2017.0.0.16).
 - **2020** — Se añade la posibilidad de pegar y ejecutar código Python en el panel y de
   [ejecutar guiones como comandos](https://github.com/digi21/TareasDigi3D/issues/147), de modo que basta con
   copiar un `.py` a la carpeta de macroinstrucciones o a la tabla de códigos.
