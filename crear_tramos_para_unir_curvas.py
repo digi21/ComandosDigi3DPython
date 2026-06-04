@@ -1,3 +1,4 @@
+"""Crea líneas que unen curvas de nivel del mismo nivel (código 020123) cuyos extremos estén a menos de 10 unidades, para cerrar curvas no conectadas."""
 # Este guion crea líneas que unen curvas de nivel que no están unidas.
 # Puedes ver cómo se crea en el siguiente enlace: https://youtu.be/9NV45QXFFvg
 import digi3d

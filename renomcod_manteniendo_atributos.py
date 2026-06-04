@@ -1,4 +1,5 @@
-﻿# Si tenemos por ejemplo una línea con el código:
+﻿"""Cambia el código de las entidades de un código origen a uno destino conservando los campos Tabla y Registro (emula RENOMCOD sin perder los atributos de BBDD). Abre el dibujo sin conexión a base de datos."""
+# Si tenemos por ejemplo una línea con el código:
 #     Nombre: A
 #     Tabla: 7
 #     Registro: 22

@@ -1,3 +1,4 @@
+"""Orden REDONDEA_Z [cód. maestra] [cód. fina]: redondea a entero la coordenada Z de las curvas de nivel con esos códigos."""
 # Este comando redondea la coordenada Z de las curvas de nivel.
 # 
 # Para ejecutarlo, tan solo tenemos que ejecutar la orden:

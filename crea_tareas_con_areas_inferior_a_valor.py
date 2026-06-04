@@ -1,3 +1,4 @@
+"""Crea una tarea de localización para cada línea cerrada o polígono cuya área sea inferior a 100, para encontrarlos fácilmente."""
 # Este código corresponde con el vídeo https://youtu.be/JwA4ymWz1zo
 import digi3d
 

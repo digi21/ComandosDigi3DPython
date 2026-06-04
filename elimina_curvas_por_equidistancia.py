@@ -1,3 +1,4 @@
+"""Orden ELIMINA_CURVAS_POR_EQUIDISTANCIA [códigos...] [equidistancia]: elimina las curvas de nivel cuya coordenada Z sea múltiplo de la equidistancia indicada."""
 # Este comando permite eliminar curvas de nivel que tengan una coordenada Z que sea múltiplo de una equidistancia.
 # 
 # Para ejecutarlo, tan solo tenemos que ejecutar la orden:

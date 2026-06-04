@@ -1,3 +1,4 @@
+"""Orden interactiva: al pulsar un dato, consulta al Catastro de España el nombre de la calle del edificio señalado e inserta un texto con esa información (requiere un sistema de coordenadas con EPSG compatible)."""
 import digi3d
 import json
 import urllib.request

@@ -1,3 +1,4 @@
+"""Orden FILTRAR=[cód. maestra] [cód. fina] [equidistancia]: réplica del antiguo FILTRAR de Digi (MS-DOS); elimina las curvas que no corresponden a la escala y reasigna los códigos de curva maestra y fina según su Z."""
 # Digi de MS-DOS disponía de un programa externo denominado FILTRAR.
 # Este programa cumplía dos funciones:
 # 

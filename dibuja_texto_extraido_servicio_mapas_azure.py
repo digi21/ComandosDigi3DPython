@@ -1,3 +1,4 @@
+"""Orden interactiva: obtiene el nombre de la calle desde Azure Maps y dibuja un texto orientado (pide origen y dirección). Requiere configurar tu subscription key de Azure."""
 import digi3d
 import json
 import urllib.request

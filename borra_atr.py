@@ -1,3 +1,4 @@
+"""Elimina el enlace a base de datos (atributos) de todas las entidades del dibujo, clonándolas con códigos nuevos sin diccionario de BBDD."""
 import digi3d
 
 view = digi3d.current_view()

@@ -17,19 +17,21 @@ guiones que coloques en el sitio adecuado. Para usar cualquier comando de este r
 
 ## 📦 Comandos disponibles
 
-Cada archivo `.py` es un comando independiente. Abre el archivo para ver qué hace y cómo se usa (suele
-explicarse en sus comentarios):
+Cada archivo `.py` es un comando independiente. Abre el archivo para ver los detalles de uso (parámetros,
+ejemplos) en su cabecera.
 
-- `borra_atr.py`
-- `crea_tareas_con_areas_inferior_a_valor.py`
-- `crear_tramos_para_unir_curvas.py`
-- `dibuja_texto_extraido_callejero_catastro.py`
-- `dibuja_texto_extraido_servicio_mapas_azure.py`
-- `elimina_curvas_por_equidistancia.py`
-- `filtrar.py`
-- `redondea_z.py`
-- `renomcod_manteniendo_atributos.py`
-- `transforma_complejo_a_punto.py`
+| Comando | Qué hace |
+| --- | --- |
+| `borra_atr.py` | Elimina el enlace a base de datos (atributos) de todas las entidades del dibujo. |
+| `crea_tareas_con_areas_inferior_a_valor.py` | Crea una tarea de localización para cada línea cerrada o polígono cuya área sea inferior a 100. |
+| `crear_tramos_para_unir_curvas.py` | Crea tramos que unen curvas de nivel del mismo nivel cuyos extremos están muy próximos. |
+| `dibuja_texto_extraido_callejero_catastro.py` | Orden interactiva: inserta el nombre de la calle (Catastro de España) del punto señalado. |
+| `dibuja_texto_extraido_servicio_mapas_azure.py` | Orden interactiva: inserta el nombre de la calle desde Azure Maps (requiere _subscription key_). |
+| `elimina_curvas_por_equidistancia.py` | Orden `ELIMINA_CURVAS_POR_EQUIDISTANCIA`: borra las curvas cuya Z es múltiplo de la equidistancia dada. |
+| `filtrar.py` | Orden `FILTRAR`: filtra las curvas para una escala y reasigna los códigos de maestra/fina (réplica del FILTRAR de MS-DOS). |
+| `redondea_z.py` | Orden `REDONDEA_Z`: redondea a entero la coordenada Z de las curvas de nivel indicadas. |
+| `renomcod_manteniendo_atributos.py` | Cambia un código por otro conservando Tabla y Registro (RENOMCOD sin perder atributos). |
+| `transforma_complejo_a_punto.py` | Transforma geometrías de tipo Complejo en Punto (los códigos se editan dentro del guion). |
 
 ## ✍️ ¿Quieres colaborar?
 
