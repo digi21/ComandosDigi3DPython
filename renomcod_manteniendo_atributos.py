@@ -22,7 +22,7 @@ def TieneElCódigo(entidad, código):
         Esta función devuelve verdadero si se encuentra al menos un código de los pasados por parámetros
         de entre los códigos que tiene la entidad.
     """
-    códigosEntidad = { cod.name for cod in entidad.codes }
+    códigosEntidad = { cod.code for cod in entidad.codes }
     return len(códigosEntidad.intersection({código})) > 0
 
 def creaClonCambiandoCodigo(entidad, códigoOrigen, códigoDestino):
@@ -36,8 +36,11 @@ def creaClonCambiandoCodigo(entidad, códigoOrigen, códigoDestino):
     clon = entidad.clone()
     codes = []
     for código in entidad.codes:
-        if código.name == códigoOrigen:
-            codes.append(digi3d.Code(códigoDestino, código.table, código.id))
+        if código.code == códigoOrigen:
+            nuevo = digi3d.FeatureCode(códigoDestino)
+            nuevo.table = código.table
+            nuevo.id = código.id
+            codes.append(nuevo)
         else:
             codes.append(código)
     clon.codes = tuple(codes)
@@ -50,7 +53,7 @@ if len(argv) < 2:
 códigoOrigen = argv[0]
 códigoDestino = argv[1]
 
-entidadesRenombrar = filter(lambda entidad: TieneElCódigo(entidad, códigoOrigen), view)
+entidadesRenombrar = list(filter(lambda entidad: TieneElCódigo(entidad, códigoOrigen), view))
 
 añadir = []
 for entidad in entidadesRenombrar:

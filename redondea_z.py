@@ -19,7 +19,7 @@ def TieneAlgunCódigo(entidad, códigos):
         Esta función devuelve verdadero si se encuentra al menos un código de los pasados por parámetros
         de entre los códigos que tiene la entidad.
     """
-    códigosEntidad = { cod.name for cod in entidad.codes }
+    códigosEntidad = { cod.code for cod in entidad.codes }
     return len(códigos.intersection(códigosEntidad)) > 0
 
 def redondea_z(curva):

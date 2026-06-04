@@ -11,8 +11,8 @@ def creaClonSinAtributosBaseDatos(entidad):
     """
     clon = entidad.clone()  
     codes = []
-    for codigo in entidad.Codes:
-        codes.append(digi3d.Code(codigo))
+    for codigo in entidad.codes:
+        codes.append(digi3d.FeatureCode(codigo.code))
     clon.codes = tuple(codes)
     return clon
 

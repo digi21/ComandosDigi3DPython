@@ -5,7 +5,7 @@ import digi3d
 view = digi3d.current_view()
 calculadora = view.geographic_calculator
 
-curvas = list(filter(lambda entidad: not entidad.deleted and entidad.codes[0].name == '020123', view))
+curvas = list(filter(lambda entidad: not entidad.deleted and entidad.codes[0].code == '020123', view))
 
 
 def coordenadas_unir(curva_a, curva_b, distancia):

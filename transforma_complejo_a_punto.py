@@ -7,7 +7,7 @@ import digi3d
 vista = digi3d.current_view()
 
 def transforma_complejo_a_punto(codigo):
-	eliminar = filter(lambda g: not g.deleted and type(g) is digi3d.Complex and g.codes[0].name == codigo, vista)
+	eliminar = list(filter(lambda g: not g.deleted and type(g) is digi3d.Complex and g.codes[0].code == codigo, vista))
 	for entidad in eliminar:
 		centro = ((entidad.min[0] + entidad.max[0])/2, (entidad.min[1] + entidad.max[1])/2, (entidad.min[2] + entidad.max[2])/2)
 		punto = digi3d.Point(centro, entidad.codes, 0, (1.0, 1.0, 1.0))

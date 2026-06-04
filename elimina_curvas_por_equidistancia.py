@@ -18,7 +18,7 @@ def TieneAlgunCódigo(entidad, códigos):
         Esta función devuelve verdadero si se encuentra al menos un código de los pasados por parámetros
         de entre los códigos que tiene la entidad.
     """
-    códigosEntidad = { cod.name for cod in entidad.codes }
+    códigosEntidad = { cod.code for cod in entidad.codes }
     return len(códigos.intersection(códigosEntidad)) > 0
 
 def EsMultiploDeEquidistancia(entidad, equidistancia):
@@ -30,23 +30,23 @@ def EsMultiploDeEquidistancia(entidad, equidistancia):
 
         equidistancia: Equidistancia para la cual consultamos.
     """
-    z = entidad.Points[0].Z
+    z = entidad[0][2]
     return 0 == z % equidistancia
 
 if len(argv) < 2:
 	digi3d.music(digi3d.MusicType.Error)
 	raise Exception('Número de parámetros incorrecto')
 	
-códigosEntidadesAModificar = set(argv[0:-2])
+códigosEntidadesAModificar = set(argv[0:-1])
 equidistancia = float(argv[-1])
 		
-curvasNivel = filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), view)
+curvasNivel = list(filter(lambda entidad: TieneAlgunCódigo(entidad, códigosEntidadesAModificar), view))
 
 if len(curvasNivel) == 0:
 	digi3d.music(digi3d.MusicType.Error)
 	raise Exception('No se ha localizado ninguna curva de nivel con los códigos pasados por parámetro')
 
-curvasNivelAEliminar = filter(lambda entidad: EsMultiploDeEquidistancia(entidad, equidistancia), curvasNivel)
+curvasNivelAEliminar = list(filter(lambda entidad: EsMultiploDeEquidistancia(entidad, equidistancia), curvasNivel))
 
 if len(curvasNivelAEliminar) == 0:
 	digi3d.music(digi3d.MusicType.Error)
